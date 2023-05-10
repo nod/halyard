@@ -1,0 +1,26 @@
+#!/bin/sh
+#
+# just run this and it will build for the local system
+#
+# for cross compilation, set the following environment variables to match the
+# target operating system and architecture.
+# to see all supported by your go version, run: `go tool dist list`
+# 
+# GOOS sets the os family
+#   probable values:
+#       linux
+#       windows
+#       darwin  (use this for macos)
+#
+# GOARCH sets the cpu family
+#   probably values:
+#       amd64
+#       arm64   (use this for apple silicon)
+# 
+# to build for macos on apple silicon, run like the following
+# GOOS=darwin GOARCH=amd64 bin/build.sh
+
+VER=$(bin/incr_version)
+
+go build -ldflags "-X main.version=${VER}" -o build/halyard halyard/cmd.go
+

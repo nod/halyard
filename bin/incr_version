@@ -1,0 +1,7 @@
+#!/bin/sh
+
+farg=$1
+verfile="${farg:=VERSION}"
+VER=`cat ${verfile}`
+NEWVER=`echo $VER | awk -F. -v OFS=. '{$NF += 1 ; print}'`
+echo $NEWVER | tee $verfile
