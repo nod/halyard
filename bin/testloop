@@ -1,15 +1,14 @@
-#!/bin/sh
+#!/bin/bash
 
-
-if ! command -v entr &> /dev/null
-then
-    echo ERR entr not found 
+entr=`which entr`
+if [ ! -x $entr ]; then
+    echo ERR entr not found
     exit 1
 fi
 
 # run tests whenever files change
 
 while : ; do
-    find . -name '*.go' | entr -p -d go test -v ./...
+    find ./ -name '*.go' | entr -d go test -v ./...
 done
 
