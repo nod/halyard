@@ -8,7 +8,5 @@ fi
 
 # run tests whenever files change
 
-while : ; do
-    find ./ -name '*.go' | entr -d go test -v ./...
-done
+find ./ -name '*.go' | entr -d -c go test -v ./...
 

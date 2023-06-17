@@ -22,5 +22,5 @@
 
 VER=$(bin/incr_version)
 
-go build -ldflags "-X main.version=${VER}" -o build/halyard halyard/cmd.go
+go build -ldflags "-X main.version=${VER}" -o build/halyard main.go
 
