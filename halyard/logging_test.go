@@ -5,5 +5,8 @@ import (
 )
 
 func TestMakeLogger(t *testing.T) {
-  ll := NewLogger()
+  loggy := NewLogger("")
+  if loggy == nil {
+    t.Fatalf("failed to make logger")
+  }
 }

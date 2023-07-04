@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/urfave/cli/v2"
@@ -80,6 +81,6 @@ func main() {
 	log := hy.GetLogger()
 
     if err := app.Run(os.Args); err != nil {
-        log.Fatal(err)
+        log.Error(fmt.Sprintf("%v", err))
     }
 }

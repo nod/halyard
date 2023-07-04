@@ -8,7 +8,7 @@ import (
 func TestNewSignalFlag(t *testing.T) {
 	owner, _ := NewSFOwner("yoyo")
 	ctx, _ := NewSFContext(owner, "context", []string{"a"})
-	s, err := NewSignalFlag(ctx, "cool thing", []string{"blah"})
+	s, err := NewSignalFlag(&ctx, "cool thing", []string{"blah"})
 	if err != nil {
 		t.Fatalf("error whiel creating sigflag %v", err)
 	}
@@ -26,5 +26,4 @@ func TestNewSignalFlag(t *testing.T) {
 	if s.CritTTL != min3 {
 		t.Fatalf("crit TTL not set")
 	}
-
 }

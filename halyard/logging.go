@@ -2,10 +2,8 @@ package halyard
 
 import (
 	"os"
-
 	"golang.org/x/exp/slog"
 )
-
 
 var logger *slog.Logger
 
@@ -16,15 +14,21 @@ func NewLogger(loglevel string) *slog.Logger {
   case "debug": lvl = slog.LevelDebug
   default: lvl = slog.LevelInfo
   }
-  handler := slog.NewJSONHandler(os.Stdout, nil)
+  slogopts := slog.HandlerOptions{Level: lvl}
+  handler := slog.NewJSONHandler(os.Stdout, &slogopts)
   logger := slog.New(handler)
   return logger
 }
 
-
 func GetLogger() *slog.Logger {
-  if logger == (slog.Logger{}) {
+  if logger == nil {
     logger = NewLogger("")
   }
-  return &logger
+  return logger
 }
+
+func LogFatal(msg string) {
+  GetLogger().Error(msg)
+  os.Exit(1)
+}
+

@@ -1,8 +1,8 @@
 package halyard
 
 import (
-	badger "github.com/dgraph-io/badger/v4"
-	"log"
+  "fmt"
+  badger "github.com/dgraph-io/badger/v4"
 )
 
 type DB interface {
@@ -18,7 +18,7 @@ type BadgerDB struct {
 func NewBadgerDB(path string) (*BadgerDB, error) {
 	dbc, err := badger.Open(badger.DefaultOptions(path))
 	if err != nil {
-		log.Fatal(err)
+		LogFatal(fmt.Sprintf("%v", err))
 	}
 	db := BadgerDB{}
 	db.bdb = dbc

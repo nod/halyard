@@ -66,6 +66,16 @@ func NewSFOwner(name string) (SFOwner, error) {
 	return o, nil
 }
 
+func GrabSFOwner(db DB, oid string) *SFOwner {
+  blob,_ := db.Get([]byte(oid))
+  var sfo SFOwner
+  if err := json.Unmarshal(blob, &sfo); err != nil {
+    return nil
+  }
+  return &sfo
+}
+
+
 type SFContext struct {
 	OwnerId string   `json:oid`
 	CtxId   string   `json:cid`
@@ -107,7 +117,7 @@ func (sf *SignalFlag) Key() string {
 	return MakeSignalFlagKey(sf.OwnerId, sf.CtxId, sf.Slug)
 }
 
-func NewSignalFlag(ctx SFContext, slug string, tags []string) (*SignalFlag, error) {
+func NewSignalFlag(ctx *SFContext, slug string, tags []string) (*SignalFlag, error) {
 	s := SignalFlag{}
 	s.OwnerId = ctx.OwnerId
 	s.CtxId = ctx.CtxId

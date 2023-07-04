@@ -2,7 +2,6 @@ package halyard
 
 import (
 	"bytes"
-	"log"
 	"testing"
 
 	badger "github.com/dgraph-io/badger/v4"
@@ -31,9 +30,7 @@ func TestSigSave(t *testing.T) {
 	db := NewMemDB()
 	o, _ := NewSFOwner("blah")
 	c, _ := NewSFContext(o, "bleh", nil)
-	s, _ := NewSignalFlag(c, "something-cool", []string{"asdf", "adf"})
-	j := s.ToJSON()
-	log.Printf("THINGS %s", string(j))
+	s, _ := NewSignalFlag(&c, "something-cool", []string{"asdf", "adf"})
 	s.Save(db)
 
 	s2, _ := FetchSignalFlag(db, c, "something-cool")
@@ -44,7 +41,7 @@ func TestSigSave(t *testing.T) {
 	if len(oflags) != 1 {
 		t.Fatalf("no flags found for owner")
 	}
-	sf2, _ := NewSignalFlag(c, "another-cool", []string{"asdf", "adf"})
+	sf2, _ := NewSignalFlag(&c, "another-cool", []string{"asdf", "adf"})
 	if sf2 == nil {
 		t.Fatalf("no flag made")
 	}
