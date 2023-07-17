@@ -3,7 +3,7 @@ package halyard
 import (
 )
 
-type OpBroker struct {
+type OperBroker struct {
 
 }
 
