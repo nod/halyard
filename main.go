@@ -80,6 +80,11 @@ func main() {
 
 	log := hy.GetLogger()
 
+    cfg := hy.GetConfig()
+    cfg.HttpListenUri = "localhost:6488"
+    cfg.DbUri = "/tmp/tmp.db"
+    hy.StartHTTPServer(cfg.HttpListenUri)
+
     if err := app.Run(os.Args); err != nil {
         log.Error(fmt.Sprintf("%v", err))
     }
